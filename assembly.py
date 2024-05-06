@@ -9,13 +9,11 @@ import assemblyai as aai
 import os
 
 
-def processAudio(file_url):
+def processAudio(file_url,num_speakers):
     try:
         start_time = time.time()
         print("process started at:", time.ctime(start_time))
             
-
-
 
         # Replace with your API key
         aai.settings.api_key = "ff5858599e3c4979a626c7cf463688d5"
@@ -26,7 +24,7 @@ def processAudio(file_url):
         # You can also transcribe a local file by passing in a file path
         # FILE_URL = './path/to/file.mp3'
 
-        config = aai.TranscriptionConfig(speaker_labels=True)
+        config = aai.TranscriptionConfig(speaker_labels=True, speakers_expected=num_speakers)
 
         transcriber = aai.Transcriber()
 

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile,Form
 import os
 from pathlib import Path
 from assembly import processAudio
@@ -7,7 +7,8 @@ from assembly import processAudio
 app = FastAPI()
 
 @app.post("/upload-audio/")
-async def create_upload_file(file: UploadFile = File(...)):
+async def create_upload_file(file: UploadFile = File(...), num_speakers: int = Form(...)):
+
     try:
         # Save the file locally
         file_location = f"temp/{file.filename}"
@@ -18,7 +19,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         
 
         # Process the file
-        return processAudio(file_location)
+        return processAudio(file_location,num_speakers)
     except Exception as e:
         print(e)
         return 'something went wrong'
